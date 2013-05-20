@@ -1,0 +1,19 @@
+application: gimp-wall
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /tile/.*
+  script: engine.application
+
+- url: /foo
+  script: engine.application
+  
+- url: /
+  static_dir: html
+
+libraries:
+- name: PIL
+  version: latest
