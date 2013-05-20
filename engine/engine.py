@@ -24,6 +24,9 @@ class TileGenerator(webapp2.RequestHandler):
 			tile = Image.new("RGB", size, (255, 255, 255))
 			draw = ImageDraw.Draw(tile)
 			
+			# draw boundary
+			draw.rectangle([(0,0), tile.size], fill=(255, 255, 255), outline=(0,0,0))
+			
 			# draw label
 			label = ' x: %d y: %d zoom: %d' % (x, y, z)
 			labelwidth, labelheight = draw.textsize(label)
