@@ -6,15 +6,61 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" />
 <![endif]-->
 <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#title").hover(
+    //on mouseover
+    function() {
+      $(this).animate({
+        height: '+=250' //adds 250px
+        }, 'slow' //sets animation speed to slow
+      );
+    },
+    //on mouseout
+    function() {
+      $(this).animate({
+        height: '-=250px' //substracts 250px
+        }, 'slow'
+      );
+    }
+  );
+});
+</script> 
+
 <style type="text/css">
-	#map { height: 500px; }
+#title{
+    height:5%;
+    overflow:hidden;
+    background: red; /* just for demo */
+}
+
+#map { height: 95%; }
+
+#artiste {
+	position:absolute;
+	right:2em;
+	top:2ex;
+}
+
+body {
+	height:100%
+}
+
 </style>
+
 <title>GIMP Image Wall</title>
+
 </head>
+
 <body>
+<div id="title">
 <h1>GIMP Image Wall - an Interactive Art Experiment</h1>
 <blockquote>I think it is in collaboration that the nature of art is revealed.<br/>
 - Steve Lacy</blockquote> 
+
+<div id="artiste">Id - tiles</div>
+</div>
 
 <div id="map"></div>
 

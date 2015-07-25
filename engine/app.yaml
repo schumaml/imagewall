@@ -8,7 +8,7 @@ handlers:
 - url: /tile/.*
   script: engine.application
 
-- url: /foo
+- url: /upload/.*
   script: engine.application
   
 - url: /
