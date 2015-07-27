@@ -39,7 +39,7 @@ class OpenIDHandler(webapp2.RequestHandler):
 		
 class TileUploader(blobstore_handlers.BlobstoreUploadHandler):
 	def get(self):
-		logging.info('TileUploader')
+		logging.info('TileUploader GET')
 		# the upload url
 		upload_url = blobstore.create_upload_url('/upload')
 	
@@ -53,6 +53,7 @@ class TileUploader(blobstore_handlers.BlobstoreUploadHandler):
 		return
 
 	def post(self):
+		logging.info('TileUploader POST')
 		# the uploaded tile is already in the blobstore
 		upload_files = self.get_uploads('file')  # 'file' is file upload field in the form
 		
@@ -67,6 +68,10 @@ class TileUploader(blobstore_handlers.BlobstoreUploadHandler):
 		
 		# todo: assign this as a created tile to the current user
 		# createdTile = new Tile
+		# createdTile.x = x
+		# createdTile.y = y
+		# createdTile.z = z
+		# createdTile.contentKey = blob_info.key()
 		
 		return
 
