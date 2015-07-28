@@ -2,16 +2,17 @@ import logging
 import webapp2
 #from google.appengine.api import images
 import Image, ImageDraw
+from google.appengine.ext import db
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 import StringIO
 
 		
 application = webapp2.WSGIApplication([
-	webapp2.Route(r'/foo', handler=MainPage),
-	webapp2.Route(r'/upload/', handler=TileUploader),
-	webapp2.Route(r'/_ah/login_required', handler=OpenIDHandler),
-	webapp2.Route(r'/tile/<zs:\d+>/<xs:\d+>/<ys:\d+>.png', handler=TileGenerator),
+	(r'/foo/', 'handlers.MainPage'),
+	(r'/upload/', 'handlers.TileUploader'),
+	(r'/_ah/login_required', 'handlers.OpenIDHandler'),
+	(r'/tile/<zs:\d+>/<xs:\d+>/<ys:\d+>.png', 'handlers.TileGenerator'),
 ], debug=True)
 
 # datastore entities
@@ -20,7 +21,9 @@ class Being(db.Model):
 	federation	= db.StringProperty();
 
 class Tile(db.Model):
-	x, y, z		= db.IntegerProperty;
+	x 		= db.IntegerProperty;
+	y 		= db.IntegerProperty;
+	z		= db.IntegerProperty;
 	contentkey	= blobstore.BlobReferenceProperty();
 
 class MainPage(webapp2.RequestHandler):
