@@ -7,14 +7,6 @@ from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 import StringIO
 
-		
-application = webapp2.WSGIApplication([
-	(r'/foo/', 'handlers.MainPage'),
-	(r'/upload/', 'handlers.TileUploader'),
-	(r'/_ah/login_required', 'handlers.OpenIDHandler'),
-	(r'/tile/<zs:\d+>/<xs:\d+>/<ys:\d+>.png', 'handlers.TileGenerator'),
-], debug=True)
-
 # datastore entities
 class Being(db.Model):
 	designation = db.StringProperty();
@@ -37,14 +29,12 @@ class OpenIDHandler(webapp2.RequestHandler):
 	def get(self):
 		pass
 		
-		
-		
-		
+
 class TileUploader(blobstore_handlers.BlobstoreUploadHandler):
 	def get(self):
 		logging.info('TileUploader GET')
 		# the upload url
-		upload_url = blobstore.create_upload_url('/upload')
+		upload_url = blobstore.create_upload_url('/upload/')
 	
 		# and a short form
 		self.response.out.write('<html><body>')
@@ -122,3 +112,9 @@ class TileGenerator(webapp2.RequestHandler):
 			pass
 		return
 
+application = webapp2.WSGIApplication([
+	webapp2.Route(r'/foo/', handler=MainPage),
+	webapp2.Route(r'/upload/', handler=TileUploader),
+	webapp2.Route(r'/_ah/login_required', handler=OpenIDHandler),
+	webapp2.Route(r'/tile/<zs:\d+>/<xs:\d+>/<ys:\d+>.png', handler=TileGenerator),
+], debug=True)
